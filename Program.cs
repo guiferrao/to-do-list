@@ -26,32 +26,41 @@ class Program
             Console.WriteLine($"Tarefas a fazer: {tarefasAFazer.Descricao}");
         }
 
-        Console.WriteLine("Qual tarefa foi concluida");
-        int idbusca = int.Parse(Console.ReadLine());
-        bool tarefaEncontrada = false;
-        bool jaConcluida = false;
+        while (true)
+        {
 
-        foreach (Tarefa tarefaFeita in tarefas)
-        {
-            if (tarefaFeita.Id == idbusca)
+            Console.WriteLine("Qual tarefa foi concluida");
+            string input = Console.ReadLine();
+            if (input.ToLower() == "sair")
             {
-                tarefaEncontrada = true;
-                if (tarefaFeita.Concluida)
-                {
-                    jaConcluida = true;
-                    Console.WriteLine($"A tarefa {tarefaFeita.Descricao} ja estava concluida");
-                }
-                else
-                {
-                    tarefaFeita.Concluida = true;
-                    Console.WriteLine($"A tarefa {tarefaFeita.Descricao} agora esta concluida");
-                }
-                break;
+                return;
             }
-        }
-        if (!tarefaEncontrada && !jaConcluida)
-        {
-            Console.WriteLine("Nao foi encontrada tarefa com este ID por fazer");
+            int idbusca = int.Parse(input);
+            bool tarefaEncontrada = false;
+            bool jaConcluida = false;
+
+            foreach (Tarefa tarefaFeita in tarefas)
+            {
+                if (tarefaFeita.Id == idbusca)
+                {
+                    tarefaEncontrada = true;
+                    if (tarefaFeita.Concluida)
+                    {
+                        jaConcluida = true;
+                        Console.WriteLine($"A tarefa {tarefaFeita.Descricao} ja estava concluida");
+                    }
+                    else
+                    {
+                        tarefaFeita.Concluida = true;
+                        Console.WriteLine($"A tarefa {tarefaFeita.Descricao} agora esta concluida");
+                    }
+                    break;
+                }
+            }
+            if (!tarefaEncontrada && !jaConcluida)
+            {
+                Console.WriteLine("Nao foi encontrada tarefa com este ID por fazer");
+            }
         }
     }
 }
