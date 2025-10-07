@@ -1,0 +1,9 @@
+# Visual Studio / Rider / IDE-generated files
+[Bb]in/
+[Oo]bj/
+
+# NuGet
+*.nupkg
+
+# Visual Studio Code
+.vscode/
