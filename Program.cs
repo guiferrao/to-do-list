@@ -1,3 +1,5 @@
+using System.Security.Authentication;
+
 public class Tarefa
 {
     public int Id { get; set; }
@@ -36,30 +38,20 @@ class Program
                 return;
             }
             int idbusca = int.Parse(input);
-            bool tarefaEncontrada = false;
-            bool jaConcluida = false;
 
-            foreach (Tarefa tarefaFeita in tarefas)
+            var tarefaConcluida = tarefas.FirstOrDefault(t => t.Id == idbusca);
+
+            if (tarefaConcluida != null)
             {
-                if (tarefaFeita.Id == idbusca)
+                if (!tarefaConcluida.Concluida)
                 {
-                    tarefaEncontrada = true;
-                    if (tarefaFeita.Concluida)
-                    {
-                        jaConcluida = true;
-                        Console.WriteLine($"A tarefa {tarefaFeita.Descricao} ja estava concluida");
-                    }
-                    else
-                    {
-                        tarefaFeita.Concluida = true;
-                        Console.WriteLine($"A tarefa {tarefaFeita.Descricao} agora esta concluida");
-                    }
-                    break;
+                    tarefaConcluida.Concluida = true;
+                    Console.WriteLine($"A tarefa {tarefaConcluida.Descricao} foi concluida");
                 }
-            }
-            if (!tarefaEncontrada && !jaConcluida)
-            {
-                Console.WriteLine("Nao foi encontrada tarefa com este ID por fazer");
+                else
+                {
+                    Console.WriteLine($"A tarefa {tarefaConcluida.Descricao} ja estava concluida");
+                }
             }
         }
     }
